@@ -1,0 +1,17 @@
+#mosquitto server
+#mqtt:
+  broker: localhost
+  port: 1883
+  client_id: HomeAssistant_1
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+  birth_message:
+    topic: 'hass/status'
+    payload: 'online'
+    qos: 1
+    retain: true
+  will_message:
+    topic: 'hass/status'
+    payload: 'offline'
+    qos: 1
+    retain: true

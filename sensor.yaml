@@ -1,0 +1,51 @@
+#############
+# sensor:   #
+#############
+
+  - platform: yr
+  - platform: darksky
+    api_key: 8d4f537bcf3b30bcc653ebe1cbf6614c
+    monitored_conditions:
+      - summary
+      - icon
+      - nearest_storm_distance
+      - temperature
+      - humidity
+      - precip_probability
+      - precip_intensity
+      - wind_speed
+      - pressure
+      - wind_bearing
+      - apparent_temperature
+      - icon
+
+  - platform : mqtt
+    name: "lounge Temperature"
+    state_topic: "tele/lounge_lamp/SENSOR"
+    value_template: "{{ value_json['DHT11'].Temperature }}"
+    unit_of_measurement: "C"
+
+  - platform: mqtt
+    name: "Lounge Humidity"
+    state_topic: "tele/lounge_lamp/SENSOR"
+    value_template: "{{ value_json['DHT11'].Humidity }}"
+    unit_of_measurement: "%"
+
+  - platform : mqtt
+    name: "OutDoor Temperature"
+    state_topic: "tele/Central_Heating/SENSOR"
+    value_template: "{{ value_json['DHT11'].Temperature }}"
+    unit_of_measurement: "C"
+    
+  - platform: mqtt
+    name: "Outdoor Humidity"
+    state_topic: "tele/Central_Heating/SENSOR"
+    value_template: "{{ value_json['DHT11'].Humidity }}"
+    unit_of_measurement: "%"
+
+  - platform : mqtt
+    name: "Front Door Battery level"
+    state_topic: "stat/door/front/battery"
+    #value_template: "{{ value_json['DHT11'].Temperature }}"
+    unit_of_measurement: "%"
+

@@ -1,0 +1,11 @@
+#########
+#switch:#
+########
+  - platform: mqtt
+    name: "Central Heating"
+    state_topic: "stat/Central_Heating/POWER"
+    command_topic: "cmnd/Central_Heating/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    qos: 0

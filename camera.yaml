@@ -1,0 +1,12 @@
+############
+#  camera: #
+############
+
+#    - platform: generic
+#      still_image_url: http://192.168.0.11/picture/1/current/
+#      name: HomeCamera
+#      scan_interval: 5
+#    - platform: generic
+#      still_image_url: http://192.168.0.11/picture/2/current/
+#      name: HomeCamera2
+#      scan_interval: 5 

@@ -1,0 +1,12 @@
+#################################################################
+## Input_slider
+#################################################################
+
+  target_temp:
+    icon: mdi:thermometer-lines
+    name: Front Room Temperature
+    min: 0
+    max: 25
+    step: 1
+    unit_of_measurement: step
+    icon: mdi:target

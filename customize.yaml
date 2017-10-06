@@ -1,0 +1,23 @@
+
+###############
+#  customize: #
+###############
+
+    light.dining_room_lamp:
+      friendly_name: Dining Room Lamp
+      icon: mdi:lightbulb-outline
+      assumed_state: false
+    light.lounge_lamp:
+      friendly_name: Lounge Lamp
+      icon: mdi:lightbulb-outline
+      assumed_state: false
+    switch.central_heating:
+      friendly_name: Central Heating
+      icon: mdi:thermometer-lines
+      assumed_state: false
+    automation.auto_lamps:
+      friendly_name: Auto Lamps On
+      icon: mdi:lightbulb-on
+    automation.lights_off:
+      friendly_name: Auto Lamps Off
+      icon: mdi:lightbulb-outline

@@ -1,0 +1,84 @@
+homeassistant:
+  customize: !include customize.yaml
+
+  name: Home
+  # Location
+  latitude: 50.381221
+  longitude: -4.121090
+  # altitude
+  elevation: 11
+  unit_system: metric
+  time_zone: Europe/London
+
+
+
+
+# Show links to resources in log and frontend introduction: Enables the 
+# frontend
+frontend:
+
+
+# Enables configuration UI
+config: 
+
+http:
+  api_password: !secret api_password
+  # PASSWORD Uncomment this if you are using SSL or running in Docker
+  base_url: knoxster.duckdns.org:8123
+
+#updater:
+# Discover some devices automatically
+discovery:
+#   ignore:
+#     - sonos
+#     - samsung_tv
+
+
+# Allows you to issue voice commands from the frontend in enabled 
+# browsers
+#conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+#all sensors 
+
+
+# Text to speech
+tts:
+  platform: google
+
+
+binary_sensor:
+
+  - platform: mqtt
+    name: "Front Door"
+    state_topic: "stat/door/front/state"
+    payload_on: "1"
+    payload_off: "0"
+    qos: 0
+    retain: false
+    device_class: opening
+
+media_player:
+  - platform: plex
+
+      
+device_tracker:
+  - platform: owntracks
+ 
+input_slider: !include input_slider.yaml
+group: !include groups.yaml
+automation: !include automations.yaml
+light: !include light.yaml
+mqtt: !include mqtt.yaml
+sensor: !include sensor.yaml
+switch: !include switch.yaml
+#camera: !include camera.yaml
+

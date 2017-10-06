@@ -1,0 +1,21 @@
+  ###############
+  # light.yaml #
+  ###############
+
+  - platform: mqtt
+    name: "Lounge Lamp"
+    state_topic: "stat/lounge_lamp/POWER"
+    command_topic: "cmnd/lounge_lamp/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    qos: 0
+    
+  - platform: mqtt
+    name: "Dining Room Lamp"
+    state_topic: "stat/Dining_Room/POWER"
+    command_topic: "cmnd/Dining_Room/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    qos: 0

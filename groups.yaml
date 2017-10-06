@@ -1,0 +1,52 @@
+##############
+# groups     #
+##############
+  default_view:
+    view: yes
+    entities:
+    - group.lamps
+    - input_slider.target_temp
+    - sensor.lounge_temperature
+    - sensor.outdoor_temperature
+    - switch.central_heating
+    - automation.auto_lamps
+    - automation.lights_off
+    
+
+
+
+  media:
+    entities:
+    - media_player.dining_room
+    - media_player.kitchen
+    - media_player.samsung_m5_spkwam550
+    - media_player.lounge
+    - media_player.our_tv_ue46f7000
+    name: Media Players
+    view: true
+
+  weather:
+    entities:
+    - sensor.dark_sky_apparent_temperature
+    - sensor.dark_sky_nearest_storm_distance
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_precip_intensity
+    - sensor.dark_sky_pressure
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_wind_speed
+    - sensor.dark_sky_wind_bearing
+    - sensor.lounge_temperature
+    - sensor.lounge_humidity
+    - sensor.outdoor_temperature
+    - sensor.outdoor_humidity
+    name: Weather
+    view: True
+
+    
+  lamps:
+
+    entities:
+    - light.lounge_lamp
+    - light.dining_room_lamp
+    name: Lamps
+    view: false
