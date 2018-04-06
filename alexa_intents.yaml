@@ -1,0 +1,181 @@
+
+########################
+#  Alexa Intents     ###
+########################
+
+
+
+GetTemperature:  
+  speech:
+    type: plain
+    text: the temperature is currently {{states('sensor.lounge_temperature') }} degrees
+  action:
+    service: notify.tony
+    data_template:
+      message: I've just told you the temperature is {{states('sensor.lounge_temperature') }} degrees 
+      
+LocateIntent:    
+  action:
+    service: notify.tony
+    data_template:
+      message: The location of {{ User }} has been queried via Alexa.
+  speech:
+    type: plain
+    text: >
+      {%- for state in states.device_tracker -%}
+        {%- if state.name.lower() == User.lower() -%}
+          {{ state.name }} is currently at {{ state.state }}
+        {%- elif loop.last -%}
+          I am sorry, I do not know where {{ User }} is.
+        {%- endif -%}
+      {%- else -%}
+        Sorry, I don't have any trackers registered.
+      {%- endfor -%}
+  card:
+    type: simple
+    title: Where is User
+    content: Home Assistant Locate User
+
+
+    
+SetTemp:  
+  action:
+  - service: notify.tony
+    data_template:
+      message: I've just set the {{states('sensor.current_heating_mode') }} temperature to {{temp}} degrees
+  - service: input_number.set_value
+    data_template: 
+      entity_id: > 
+        {% if is_state ('sensor.current_heating_mode', 'Morning') %} 
+        input_number.morning_temp
+        {% elif is_state ('sensor.current_heating_mode', 'Evening') %} 
+        input_number.evening_temp
+        {% elif is_state ('sensor.current_heating_mode', 'Between Cycles') %} 
+        input_number.between_temp
+        {% endif %}
+      value: '{{ temp | replace(" ", "_") }}'  
+  speech:
+    type: plain
+    text: >
+      setting the {{states('sensor.current_heating_mode') }} to {{temp}} degrees.
+  card:
+    type: simple
+    title: The {{states('sensor.current_heating_mode') }}target has been changed to {{temp}}
+    content: Setting {{states('sensor.current_heating_mode') }} temperature to {{ temp | replace(" ", "_") }} degrees     
+    
+    
+SetEveTemp:  
+  action:
+  - service: notify.tony
+    data_template:
+      message: I've just set the Evening temperature to {{temp}} degrees
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.evening_temp
+      value: '{{ temp | replace(" ", "_") }}'
+  speech:
+    type: plain
+    text: >
+      {{temp}} degrees. OK.   The current Lounge temperature is {{states('sensor.lounge_temperature') }} degrees
+  card:
+    type: simple
+    title: The current target has been changed to {{temp}}
+    content: Setting temperature to {{ temp | replace(" ", "_") }} degrees 
+
+
+# SetMornTemp:  
+  # action:
+  # - service: notify.tony
+    # data_template:
+      # message: I've just been asked to set the Morning temperature to {{temp}} degrees
+  # - service: input_number.set_value
+    # data_template:
+      # entity_id: input_number.morning_temp
+      # value: '{{ temp | replace(" ", "_") }}'
+  # speech:
+    # type: plain
+    # text: >
+      # {{temp}} degrees. OK.   The current Lounge temperature is {{states('sensor.lounge_temperature') }} degrees
+  # card:
+    # type: simple
+    # title: The morning temperature has been changed to {{temp}}
+    # content: Setting temperature to {{ temp | replace(" ", "_") }} degrees 
+    
+# SetDayTemp:  
+  # action:
+  # - service: notify.tony
+    # data_template:
+      # message: I've just been asked to set the Daytime temperature to {{temp}} degrees
+  # - service: input_number.set_value
+    # data_template:
+      # entity_id: input_number.between_temp
+      # value: '{{ temp | replace(" ", "_") }}'
+  # speech:
+    # type: plain
+    # text: >
+      # {{temp}} degrees. OK.   The current Lounge temperature is {{states('sensor.lounge_temperature') }} degrees
+  # card:
+    # type: simple
+    # title: The Daytime temperature has been changed to {{temp}}
+    # content: Setting temperature to {{ temp | replace(" ", "_") }} degrees 
+    
+WhoStinks:
+  speech:
+    type: plain
+    text: !include stinks.yaml
+  card:
+    type: simple
+    title: todays stinker
+    content: Lauren Skeels
+    image:
+      smallImageUrl: /home/homeassistant/.homeassistant/images/loz_small.png
+      largeImageUrl: /home/homeassistant/.homeassistant/images/loz_lge.png
+             
+    
+#    text: >
+#      Jess Collings. Stinkier than Stinky McStink when he broke the world stinker record.   Stinker!!
+
+  
+SetHolMode:
+  action:
+  - service: notify.tony
+    data_template:
+      message: I've just been asked to set Holiday Mode
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.school_holidays
+  speech:
+    type: plain
+    text: >
+      OK.   Enjoy the School Holidays
+  card:
+    type: simple
+    title: School Holidays
+    content: The heating is now in School Holiday Mode.
+    
+CancelHolMode:
+  action:
+  - service: notify.tony
+    data_template:
+      message: I've just been asked to cancel Holiday Mode
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.school_holidays
+  speech:
+    type: plain
+    text: >
+      OK.   Back to the early mornings then.
+  card:
+    type: simple
+    title: School Holidays
+    content: The heating is now in Standard Mode.
+    
+    
+GetOutdoorTemperature:  
+  speech:
+    type: plain
+    text: the outdoor temperature is currently {{states('sensor.outdoor_temperature') }} degrees
+  action:
+    service: notify.tony
+    data_template:
+      message: I've just told you the outdoor temperature is {{states('sensor.outdoor_temperature') }} degrees     

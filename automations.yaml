@@ -1,51 +1,251 @@
-###################
-#automations.yaml #
-###################
+- alias: Weekday Morning Heating
+  id: weekdaymornHeat
+  trigger:
+  - at: '06:30:00'
+    platform: time
+  - event: start
+    platform: homeassistant
+  condition:
+  - after: '06:30:00'
+    before: '08:00:00'
+    condition: time
+  - condition: state
+    entity_id: binary_sensor.workday_today
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  action:
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.lounge
+      temperature: '{{ states.input_number.morning_temp.state | float }}'
+      
+- alias: Weekday between Heating1 
+  id: weekdaymornHeat1
+  trigger:
+  - at: '08:00:00'
+    platform: time
+  - event: start
+    platform: homeassistant
+  condition:
+  - after: '08:00:00'
+    condition: time
+  - condition: state
+    entity_id: binary_sensor.workday_today
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  action:
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.lounge
+      temperature: '14'
 
-  -  alias: "Auto Lamps"
-     trigger:
-       - platform: sun
-         event: sunset
-         offset: '-00:45:00'
+ 
+- alias: Weekday Evening Heating
+  id: weekdayEveHeat
+  trigger:
+  - platform: time
+    seconds: '/10'
+  - platform: homeassistant
+    event: start
+  condition:
+  - condition: time
+    after: '15:48:00'
+    before: '15:55:00'
+  - condition: state
+    entity_id: binary_sensor.workday_today
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  action:
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.lounge
+      temperature: '{{ states.input_number.evening_temp.state | float }}'   
 
-     action:
-       service: light.turn_on
-       entity_id: group.lamps
+      
+      
+      
+- alias: Weekday between Heating2 
+   id: weekdayeveHeat2
+  trigger:
+  - at: '15:56:00'
+    platform: time
+  - event: start
+    platform: homeassistant
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_today
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  action:
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.lounge
+      temperature: '14'      
 
-  -  alias: "lights off"
-     trigger:
-        -  platform: time
-           at: '23:15:00'
-     action: 
-       service: light.turn_off
-       entity_id: group.lamps
+      
+  
 
-
-# Automation. 
+      
+- alias: Restart HASS
+  id: restartHass
+  hide_entity: false
+  trigger:
+    platform: state
+    entity_id: input_boolean.restart_hass
+    from: 'off'
+    to: 'on'
+  action:
+    service: homeassistant.restart
+ 
+- alias: Auto Lamps
+  id: autolampson
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: '-00:45:00'
+  action:
+    service: light.turn_on
+    entity_id: group.lamps
+- alias: lights off
+  id: autolampsoff
+  trigger:
+  - platform: time
+    at: '23:15:00'
+  action:
+    service: light.turn_off
+    entity_id: group.lamps
     
- # This automation script runs when a value is received via MQTT on retained topic: setTemperature
- # It sets the value slider on the GUI. This slides also had its own automation when the value is changed.
+    
+- alias: Vacation Mode Heating
+  id: vacationEveHeat
+  trigger:
+  - platform: time
+    #at: '09:00:00'
+    seconds: '/10'
+  condition:
+  - condition: time
+    after: '13:00:00'
+    before: '20:00:00'
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'on'
+  action:
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.lounge
+      temperature: '{{ states.input_number.holiday_temp.state | float }}'  
 
-  - alias: Set temp slider
-    trigger:
-      platform: mqtt
-      topic: "setTemperature"
-   # entity_id: input_slider.target_temp
-    action:
-       service: input_slider.select_value
-       data_template:
-        entity_id: input_slider.target_temp
-        value: '{{ trigger.payload}}'
 
- # This automation script runs when the target temperature slider is moved.
- # It publishes its value to the same MQTT topic it is also subscribed to.
-  - alias: Temp slider moved
-    trigger:
-      platform: state
-      entity_id: input_slider.target_temp
-    action:
-      service: mqtt.publish
+
+- alias: Vacation Mode Morning Heating
+  id: vacationmornHeat
+  trigger:
+  - platform: time
+    at: '09:00:00'
+  - platform: homeassistant
+    event: start
+  condition:
+  - condition: time
+    after: '09:00:00'
+    before: '10:00:00'
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'on'
+  action:
+    - service: climate.set_temperature    
       data_template:
-        topic: "setTemperature"
-        retain: true
-        payload: '{{ states.input_slider.target_temp.state | int }}'
+        entity_id: climate.lounge
+        temperature: '{{ states.input_number.holiday_temp.state | float }}'      
+
+
+
+     
+- alias: School Holidays Mode Evening Heating
+  id: schoolholsEveHeat
+  trigger:
+  - platform: time
+    at: '18:00:00'
+#  - platform: homeassistant
+#    event: start
+  condition:
+  - condition: time
+    after: '18:00:00'
+    before: '20:00:00'
+  - condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  - condition: state
+    entity_id: input_boolean.school_holidays
+    state: 'off'
+  action:
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.lounge
+      temperature: '{{ states.input_number.evening_temp.state | float }}'
+      
+      
+- alias: School Holidays Mode Morning Heating
+  id: schoolholsmornHeat
+  trigger:
+  - platform: time
+    at: '09:00:00'
+  - platform: homeassistant
+    event: start
+  condition:
+  - condition: time
+    after: '09:00:00'
+    before: '10:00:00'
+  - condition: state  
+    entity_id: input_boolean.vacation_mode
+    state: 'off'
+  - condition: state
+    entity_id: input_boolean.school_holidays
+    state: 'on'
+  action:
+    - service: climate.set_temperature    
+      data_template:
+        entity_id: climate.lounge
+        temperature: '{{ states.input_number.morning_temp.state | float }}'
+
+
+        
+# - alias: test temp trigger
+  # id: testtrigger
+  # trigger:
+  # - platform: time
+    # at: '20:57:00' 
+  # condition:
+  # - condition: time
+    # after: '20:30:00'
+    # before: '21:30:00'
+  # - condition: state
+    # entity_id: binary_sensor.workday_today
+    # state: 'on'
+  # - condition: state
+    # entity_id: input_boolean.vacation_mode
+    # state: 'off'
+  # action:
+    # - service: climate.set_temperature    
+      # data_template:
+        # entity_id: climate.lounge
+        # temperature: '{{ states.input_number.morning_temp.state | float }}'
+        
+        
+# - alias: slider_change
+  # id: sliderchange
+  # trigger: 
+  # - platform: state
+    # entity_id: input_number.morning_temp
+  # action:
+  # - service: climate.set_temperature    
+    # data_template:
+      # entity_id: climate.lounge
+      # temperature: '{{ states.input_number.morning_temp.state | float }}'   

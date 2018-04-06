@@ -2,11 +2,21 @@
 #  camera: #
 ############
 
-#    - platform: generic
-#      still_image_url: http://192.168.0.11/picture/1/current/
-#      name: HomeCamera
-#      scan_interval: 5
-#    - platform: generic
-#      still_image_url: http://192.168.0.11/picture/2/current/
-#      name: HomeCamera2
-#      scan_interval: 5 
+
+
+# Displays a Google Map of users current location as determined by OwnTracks
+  - platform: generic
+    name: Tonys Location
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.tony_tonesfone.attributes.latitude }},{{ states.device_tracker.tony_tonesfone.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:blue%7Clabel:A%7C{{ states.device_tracker.tony_tonesfone.attributes.latitude }},{{ states.device_tracker.tony_tonesfone.attributes.longitude }}
+    limit_refetch_to_url_change: true
+    
+  - platform: generic
+    name: Lels Location
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.tony_lelsfone.attributes.latitude }},{{ states.device_tracker.tony_lelsfone.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:blue%7Clabel:A%7C{{ states.device_tracker.tony_lelsfone.attributes.latitude }},{{ states.device_tracker.tony_lelsfone.attributes.longitude }}
+    limit_refetch_to_url_change: true    
+    
+    
+  - platform: generic
+    name: Jessicas Location
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.tony_jess.attributes.latitude }},{{ states.device_tracker.tony_jess.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:blue%7Clabel:A%7C{{ states.device_tracker.tony_jess.attributes.latitude }},{{ states.device_tracker.tony_jess.attributes.longitude }}
+    limit_refetch_to_url_change: true     

@@ -1,0 +1,16 @@
+#################################################################
+## Climate
+#################################################################
+
+  - platform: generic_thermostat
+    name: Lounge
+    heater: switch.central_heating
+    target_sensor: sensor.lounge_temperature
+    min_temp: 11
+    max_temp: 20
+    #target_temp: 15
+    tolerance: 0.3
+    min_cycle_duration:
+      seconds: 2
+    keep_alive:
+      minutes: 15

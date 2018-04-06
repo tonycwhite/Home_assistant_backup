@@ -19,3 +19,32 @@
     payload_off: "OFF"
     optimistic: false
     qos: 0
+    
+  - platform: mqtt   
+    name: "Cabinet Lights"
+    state_topic: "stat/Cabinet_Lights/POWER"
+    command_topic: "cmnd/Cabinet_Lights/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    qos: 0
+    
+    
+  - platform: mqtt
+    name: "Vase Lights"
+    icon: mdi-lava-lamp
+    state_topic: "stat/Vase_lights/POWER"
+    command_topic: "cmnd/Vase_lights/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    qos: 0    
+  
+  - platform: mqtt
+    name: "Cabinet Light"
+    state_topic: "stat/Cabinet_Lights/POWER"
+    command_topic: "cmnd/Cabinet_Lights/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    qos: 0

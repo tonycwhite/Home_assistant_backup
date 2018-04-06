@@ -1,0 +1,50 @@
+#zone:
+  - name: School
+    hidden: false
+    latitude: 50.381277
+    longitude: -4.111387
+    radius: 250
+    icon: mdi:school
+
+  - name: Tonys Office
+    hidden: false
+    latitude: 51.501256
+    longitude: -2.561335
+    radius: 150
+    icon: mdi:factory
+
+  - name: Tonys Work Home
+    hidden: false
+    latitude: 51.49844609
+    longitude: -2.5598443
+    radius: 50
+    icon: mdi:home-variant
+    
+  # This will override the default home zone
+  - name: Home
+    hidden: false  
+    latitude: 50.38140249
+    longitude: -4.121019
+    radius: 50
+    icon: mdi:home-heart
+    
+  - name: Nanny Jens
+    hidden: false
+    latitude: 51.5628275
+    longitude: -2.664792968
+    radius: 50
+    icon: mdi:home-map-marker
+    
+  - name: Collingwood
+    hidden: false
+    latitude: 50.8357409
+    longitude: -1.191519091
+    radius: 500
+    icon: mdi:factory
+    
+  - name: Dave And Dens
+    hidden: false
+    latitude: 50.392227
+    longitude: -4.143125
+    radius: 20
+    icon: mdi:home-variant

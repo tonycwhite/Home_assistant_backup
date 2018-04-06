@@ -1,0 +1,26 @@
+#####################
+#  binary sensor:   #
+#####################
+
+  - platform: workday
+    country: 'UK'
+    name: 'workday_today'
+
+  - platform: workday
+    country: 'UK'
+    days_offset: 1
+    name: 'workday_tomorrow'
+
+  - platform: workday
+    country: 'UK'
+    days_offset: -1
+    name: 'workday_yesterday'
+    
+  - platform: mqtt
+    name: "Front Door"
+    state_topic: "stat/door/front/state"
+    payload_on: "1"
+    payload_off: "0"
+    qos: 0
+    retain: false
+    device_class: opening  

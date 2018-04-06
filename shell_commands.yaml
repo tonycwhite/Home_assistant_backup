@@ -1,0 +1,5 @@
+####################
+# shell commands
+####################
+
+test_cmd: sudo touch /home/homeassistant/.homeassistant/test.txt

@@ -1,0 +1,16 @@
+#Panels
+    dash:
+      title: 'Dash'
+      icon: mdi:movie
+      url: 'hhttp://knoxster.duckdns.org:5050'
+    nzbget:
+      title: 'NZBGet'
+      icon: mdi:download
+      url: 'http://knoxster.duckdns.org:8080'
+    plex:
+      title: 'PlexPy'
+      icon: mdi:database
+      url: 'http://knoxster.duckdns.org:32400'
+    sickbeard:
+      title: 'Sickbeard'
+      url: 'http://knoxster.duckdns.org:8083'

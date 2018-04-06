@@ -3,14 +3,12 @@ homeassistant:
 
   name: Home
   # Location
-  latitude: 50.381221
-  longitude: -4.121090
+  latitude: !secret latitude
+  longitude: !secret longtitude
   # altitude
   elevation: 11
   unit_system: metric
   time_zone: Europe/London
-
-
 
 
 # Show links to resources in log and frontend introduction: Enables the 
@@ -22,21 +20,24 @@ frontend:
 config: 
 
 http:
+  
   api_password: !secret api_password
-  # PASSWORD Uncomment this if you are using SSL or running in Docker
-  base_url: knoxster.duckdns.org:8123
+  base_url: !secret baseurl
+  ssl_certificate: !secret ssl_certificate
+  ssl_key: !secret ssl_key
+  cors_allowed_origins:
+    - https://knoxster.duckdns.org
+  
+  
 
-#updater:
+updater:
+
+
 # Discover some devices automatically
 discovery:
 #   ignore:
 #     - sonos
-#     - samsung_tv
-
-
-# Allows you to issue voice commands from the frontend in enabled 
-# browsers
-#conversation:
+#    - samsung_tv
 
 # Enables support for tracking state changes over time.
 history:
@@ -47,38 +48,116 @@ logbook:
 # Track the sun
 sun:
 
-#all sensors 
-
-
 # Text to speech
 tts:
   platform: google
 
+#media_player:
+#  - platform: plex
 
-binary_sensor:
-
-  - platform: mqtt
-    name: "Front Door"
-    state_topic: "stat/door/front/state"
-    payload_on: "1"
-    payload_off: "0"
-    qos: 0
-    retain: false
-    device_class: opening
-
-media_player:
-  - platform: plex
-
-      
+  
+ # map component
+map:  
+  
+  
 device_tracker:
   - platform: owntracks
+    max_gps_accuracy: 200
+    waypoints: True
+
+########################
+# enable alexa support #
+########################
+alexa:
+
+
+
+
+
+
+
+
+
+
+
+
+
+ # DuckDNS token   
  
-input_slider: !include input_slider.yaml
+ # e54faf09-ec2a-4ccb-8b97-3cb84ae8659a
+ 
+ ##########################
+###  Database #############
+###########################
+recorder:
+  purge_interval: 2
+  purge_keep_days: 14
+  #db_url: sqlite3:///home/homeassistant/database/home-assistant_v2.db
+  exclude:
+    domains:
+      - automation
+      - weblink
+      - updater
+    entities:
+      - sun.sun # Don't record sun data
+      - sensor.last_boot # Comes from 'systemmonitor' sensor platform
+      - sensor.date
+
+
+####################################################################################
+#                                                                                  #
+#                                                                                  #
+#                                INPUTS                                            #
+#                                                                                  #
+#                                                                                  #
+####################################################################################
+
+####################################################################################
+#                                                                                  #
+#                                notify                                            #
+#                                                                                  #
+####################################################################################
+
+notify:
+  - platform: pushbullet
+    name: tony
+    api_key: o.jE0PVhDOliaFCdRPYtI9sjCgfBhJfBvA
+
+
+    
+######################################
+#ipanels
+ 
+#panel_iframe:
+#  sickbeard:
+#    title: 'SickBeard'
+#    url: 'http://192.168.86.3:8083'
+#  fridge:
+#    title: 'Fridge'
+#    url: 'http://192.168.1.5'
+  
+####################################################################################
+#                                                                                  #
+#                                                                                  #
+#                                linked files                                      #
+#                                                                                  #
+#                                                                                  #
+####################################################################################  
+  
 group: !include groups.yaml
-automation: !include automations.yaml
+automation: !include_dir_merge_list automation
 light: !include light.yaml
 mqtt: !include mqtt.yaml
 sensor: !include sensor.yaml
 switch: !include switch.yaml
-#camera: !include camera.yaml
-
+input_boolean: !include boolean.yaml
+binary_sensor: !include binary_sensor.yaml
+climate: !include climate.yaml
+input_number: !include input_number.yaml
+input_select: !include input_select.yaml
+#input_slider: !include input_slider.yaml
+camera: !include camera.yaml
+zone: !include zone.yaml
+#panels: !include panels.yaml
+shell_command: !include shell_commands.yaml
+intent_script: !include alexa_intents.yaml

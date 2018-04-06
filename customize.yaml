@@ -1,23 +1,57 @@
-
-###############
-#  customize: #
-###############
-
-    light.dining_room_lamp:
-      friendly_name: Dining Room Lamp
-      icon: mdi:lightbulb-outline
-      assumed_state: false
-    light.lounge_lamp:
-      friendly_name: Lounge Lamp
-      icon: mdi:lightbulb-outline
-      assumed_state: false
-    switch.central_heating:
-      friendly_name: Central Heating
-      icon: mdi:thermometer-lines
-      assumed_state: false
-    automation.auto_lamps:
-      friendly_name: Auto Lamps On
-      icon: mdi:lightbulb-on
-    automation.lights_off:
-      friendly_name: Auto Lamps Off
-      icon: mdi:lightbulb-outline
+light.dining_room_lamp:
+  friendly_name: Dining Room Lamp
+  icon: mdi:lamp
+light.lounge_lamp:
+  friendly_name: Lounge Lamp
+  icon: mdi:lava-lamp
+switch.central_heating:
+  friendly_name: Central Heating
+  icon: mdi:thermometer-lines
+  assumed_state: false
+automation.auto_lamps:
+  friendly_name: Auto Lamps On
+  icon: mdi:lightbulb-on
+automation.lights_off:
+  friendly_name: Auto Lamps Off
+  icon: mdi:lightbulb-outline
+climate.lounge:
+  target_temp_step: 1
+sensor.tony_to_home: {}
+input_number.morning_temp:
+  icon: mdi:weather-sunny
+input_number.evening_temp:
+  icon: mdi:weather-sunset
+input_number.holiday_temp:
+  icon: mdi:thermometer-lines
+group.heating_temps:
+  icon: mdi:thermometer-lines
+input_number.target_temp:
+  icon: mdi:thermometer-lines
+light.xmas_lights:
+  icon: mdi:pine-tree
+binary_sensor.front_door:
+  icon: mdi:key-variant
+light.vase_lights:
+  icon: mdi:lava-lamp
+light.cabinet_lights:
+  icon: mdi:table
+light.cabinet_light:
+  icon: mdi:table
+group.media:
+  icon: mdi:music-circle
+group.heating_automation:
+  icon: mdi:timer
+group.heating_modes:
+  icon: mdi:thermometer
+group.heating_status:
+  icon: mdi:thermometer
+group.automations_tab:
+  icon: mdi:flash-auto
+group.weather:
+  icon: mdi:weather-partlycloudy
+group.default_view:
+  icon: mdi:home-assistant
+group.system:
+  icon: 'mdi: information-outline'
+group.systemview:
+  icon: mdi:information-outline

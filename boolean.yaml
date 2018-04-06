@@ -1,0 +1,16 @@
+#########
+#boolean#
+########
+
+
+restart_hass:
+  name: Restart Home Assistant
+  initial: off
+vacation_mode:
+  name: Holiday Mode
+  initial: off
+school_holidays:
+  name: School Holiday Mode
+  initial: off
+  
+  
